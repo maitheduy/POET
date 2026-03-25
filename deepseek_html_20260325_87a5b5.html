@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bản Quyền Thi Ca - Bài thơ lục bát</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e8e2d4; /* Màu giấy tả thực */
+            font-family: 'Georgia', 'Times New Roman', 'Noto Serif', 'Noto Serif CJK SC', serif;
+            line-height: 1.7;
+            color: #2c2418;
+            padding: 2rem 1rem;
+        }
+
+        /* Hiệu ứng nền giấy cũ */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, rgba(200,180,140,0.08) 0%, rgba(150,120,80,0.05) 100%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: rgba(255,250,235,0.92);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        .poem-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #d4c5a8;
+            padding-bottom: 1.2rem;
+        }
+
+        .poem-header h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #8b5a2b;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+        }
+
+        .poem-header .subtitle {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #a57c4c;
+            margin-top: 0.5rem;
+        }
+
+        /* Section style */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.8rem 0 1rem;
+            color: #6b4a2c;
+            border-left: 5px solid #c2a15b;
+            padding-left: 1rem;
+        }
+
+        .verse {
+            font-style: normal;
+            line-height: 2;
+            font-size: 1.12rem;
+            background: #fefaf2;
+            padding: 1.5rem 2rem;
+            border-radius: 28px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03);
+            margin: 1.2rem 0;
+        }
+
+        .verse p {
+            margin: 0.6rem 0;
+            text-align: center;
+        }
+
+        .english-verse {
+            background: #f8f3e8;
+            border-left: 3px solid #b5986e;
+            font-size: 1rem;
+            color: #4d3a28;
+        }
+
+        /* Venn Diagram - SVG tương tác */
+        .venn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2.2rem 0 1rem;
+            cursor: pointer;
+        }
+
+        .venn-svg {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .venn-svg:hover {
+            transform: scale(1.01);
+        }
+
+        /* Thông tin bản quyền tương tác */
+        .copyright-note {
+            text-align: center;
+            background: #f2ebdd;
+            padding: 1rem;
+            border-radius: 48px;
+            margin: 2rem 0 1rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #7a562e;
+            transition: all 0.2s;
+            border: 1px solid #e2d4bf;
+        }
+
+        .interactive-message {
+            text-align: center;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background: #fdf8ef;
+            border-radius: 40px;
+            font-style: italic;
+            color: #b87333;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            min-height: 70px;
+        }
+
+        button {
+            background: #d4bc94;
+            border: none;
+            color: #382812;
+            padding: 8px 22px;
+            font-size: 0.9rem;
+            border-radius: 40px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background: #c2a15b;
+            color: white;
+            transform: scale(0.97);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.75rem;
+            color: #aa9b7e;
+            border-top: 1px solid #e2cfb0;
+            padding-top: 1.5rem;
+        }
+
+        /* hiệu ứng responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .verse {
+                padding: 1rem;
+            }
+            .poem-header h1 {
+                font-size: 1.6rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Hiệu ứng gạch đầu dòng thơ */
+        .verse p:first-child {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="poem-header">
+        <h1>🌸 Bản Quyền Thi Ca 🌸</h1>
+        <div class="subtitle">Bài thơ Quyền tác giả phiên bản lục bát</div>
+        <div style="margin-top: 10px; font-size: 0.85rem; color:#bb8f63;">— Tặng nguồn cảm hứng bất tận —</div>
+    </div>
+
+    <!-- Bản Lục Bát -->
+    <div class="section-title">✦ Bản Lục Bát</div>
+    <div class="verse" id="vietnameseVerse">
+        <p>Em là nét ngọc kiêu sa,</p>
+        <p>Tôi mang rung động thiết tha trong lòng.</p>
+        <p>Nếu không có má em hồng,</p>
+        <p>Vần thơ đâu dễ ươm trồng trổ hoa.</p>
+        <p>Thiếu em cảm xúc phôi pha,</p>
+        <p>Làm sao tụ lại để mà tặng nhau.</p>
+        <p>Mặt hồ lặng sóng từ lâu,</p>
+        <p>Mà tâm xao xuyến nhịp cầu gặp em.</p>
+        <p>Bởi vì nguyệt tỏ qua rèm,</p>
+        <p>Nên thơ tôi mới họa kèm sắc hương.</p>
+        <p>Bản quyền một cõi yêu thương,</p>
+        <p>Xin chia hai nửa vấn vương hỡi người.</p>
+        <p>Nửa tôi dệt chữ môi cười,</p>
+        <p>Nửa em nguồn cội sáng ngời ý thơ.</p>
+    </div>
+
+    <!-- English Translation -->
+    <div class="section-title">✨ English Translation</div>
+    <div class="verse english-verse" id="englishVerse">
+        <p>You are a beauty, graceful and so fair,</p>
+        <p>While my heart holds emotions hard to bear.</p>
+        <p>Without your face, a vision so divine,</p>
+        <p>No words would breathe within this verse of mine.</p>
+        <p>If not for you, emotions far and wide,</p>
+        <p>Could never merge and in this poem reside.</p>
+        <p>The peaceful lake remains forever still,</p>
+        <p>Yet meeting you, my soul begins to thrill.</p>
+        <p>Because you came, a muse so bright and clear,</p>
+        <p>I wrote these lines to hold your essence near.</p>
+        <p>So, half this poem is yours by every right,</p>
+        <p>For you inspired its soul, its guiding light.</p>
+    </div>
+
+    <!-- Sơ đồ thi ca tương tác (Venn Diagram) -->
+    <div class="section-title">📖 Sơ Đồ Thi Ca — Bản Quyền Chia Đôi</div>
+    <div class="venn-container" id="vennArea">
+        <svg class="venn-svg" width="450" height="280" viewBox="0 0 450 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="shadow" x="-0.5" y="-0.5" width="2" height="2">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+                    <feOffset dx="2" dy="2" result="offsetblur"/>
+                    <feComponentTransfer>
+                        <feFuncA type="linear" slope="0.3"/>
+                    </feComponentTransfer>
+                    <feMerge>
+                        <feMergeNode/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+                <linearGradient id="gradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#b3d0e6" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#7fa5c4" stop-opacity="0.65"/>
+                </linearGradient>
+                <linearGradient id="gradRight" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#f7cfb5" stop-opacity="0.85"/>
+                    <stop offset="100%" stop-color="#e9b48b" stop-opacity="0.7"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Circle Left: TÔI -->
+            <circle cx="150" cy="140" r="100" fill="url(#gradLeft)" stroke="#5a7d9a" stroke-width="1.8" opacity="0.85"/>
+            <!-- Circle Right: EM -->
+            <circle cx="300" cy="140" r="100" fill="url(#gradRight)" stroke="#bc7f4a" stroke-width="1.8" opacity="0.85"/>
+
+            <!-- Vùng giao (Intersection) được highlight tương tác qua JS, nhưng vẽ sẵn  -->
+            <path id="intersectionPath" d="M 208,140 A 100,100 0 0,1 245,75 A 100,100 0 0,1 245,205 A 100,100 0 0,1 208,140" fill="#d4b6a2" fill-opacity="0.45" stroke="#aa7f66" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+            <!-- Text labels -->
+            <text x="110" y="110" text-anchor="middle" fill="#2c4b66" font-weight="bold" font-size="18" font-family="Georgia, serif">TÔI</text>
+            <text x="110" y="135" text-anchor="middle" fill="#2c4b66" font-size="10" font-family="Georgia, serif">(Người viết)</text>
+            <text x="340" y="110" text-anchor="middle" fill="#aa5e2b" font-weight="bold" font-size="18" font-family="Georgia, serif">EM</text>
+            <text x="340" y="135" text-anchor="middle" fill="#aa5e2b" font-size="10" font-family="Georgia, serif">(Nguồn cảm hứng)</text>
+
+            <!-- Dòng chữ giao thoa: BÀI THƠ -->
+            <text x="224" y="150" text-anchor="middle" fill="#5f3f28" font-weight="bold" font-size="16" font-family="Georgia, serif" style="dominant-baseline: middle;">BÀI THƠ</text>
+            <text x="224" y="175" text-anchor="middle" fill="#7d5a3e" font-size="10" font-family="Georgia, serif">Bản quyền chung</text>
+
+            <!-- Chú thích nhỏ -->
+            <text x="365" y="260" fill="#a87647" font-size="9" font-style="italic">* di chuột hoặc chạm vào hình để cảm nhận</text>
+        </svg>
+    </div>
+
+    <!-- Thông báo tương tác + bản quyền động -->
+    <div class="copyright-note" id="copyrightNote">
+        💖 Bản quyền bài thơ này thuộc về <strong>“Tôi” (rung động)</strong> và <strong>“Em” (cảm hứng)</strong> 💖
+    </div>
+    <div class="interactive-message" id="interactiveMsg">
+        ✨ Hãy nhấp vào sơ đồ hình tròn hoặc nút bên dưới để khám phá ý nghĩa "bản quyền chia đôi" ✨
+    </div>
+    <div style="text-align: center;">
+        <button id="exploreBtn">📜 Lắng nghe triết lý thi ca</button>
+        <button id="resetMsgBtn" style="margin-left: 12px; background: #e9dccd;">🕊️ Đóng gợi ý</button>
+    </div>
+
+    <footer>
+        “Nửa tôi dệt chữ môi cười, nửa em nguồn cội sáng ngời ý thơ” <br/>
+        — Khúc tình ca của những vần thơ được sinh ra từ rung động và sắc hương —
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // Các phần tử DOM
+        const vennSvg = document.querySelector('.venn-svg');
+        const vennContainer = document.getElementById('vennArea');
+        const interactiveMsgDiv = document.getElementById('interactiveMsg');
+        const exploreBtn = document.getElementById('exploreBtn');
+        const resetBtn = document.getElementById('resetMsgBtn');
+        const vietnameseVerse = document.getElementById('vietnameseVerse');
+        const englishVerse = document.getElementById('englishVerse');
+
+        // Mảng các thông điệp triết lý về bản quyền chia đôi
+        const messages = [
+            "🌿 'Tôi' viết nên lời, 'Em' thổi hồn vào câu chữ — cả hai là đồng tác giả của rung động.",
+            "📖 Như mặt hồ phẳng lặng cần ánh trăng để gợn sóng, bài thơ cần em để cất lời.",
+            "🌸 Bản quyền không thể tách rời: Một nửa là nét chữ, một nửa là nguồn cảm hứng bất tận.",
+            "🎭 Không có 'Em' xinh đẹp, 'Tôi' sẽ chỉ là những xúc cảm lặng câm. Bài thơ chính là nơi giao thoa hai tâm hồn.",
+            "🍃 'Mặt hồ nước có đôi khi phẳng lặng, tâm hồn anh xao xuyến mãi khi gặp em' — chính nhịp cầu ấy tạo nên bản quyền song hành.",
+            "✨ 'Quyền tác giả chia đôi' — bởi thơ là con đường hai chiều: từ em đến tôi, từ tôi bay về em."
+        ];
+
+        let currentMsgIndex = 0;
+
+        // Hàm hiển thị thông điệp ngẫu nhiên nhưng mang tính vòng tròn
+        function showRandomMessage() {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            interactiveMsgDiv.style.opacity = '0';
+            setTimeout(() => {
+                interactiveMsgDiv.innerHTML = `💞 ${messages[randomIndex]} 💞`;
+                interactiveMsgDiv.style.opacity = '1';
+                // thêm hiệu ứng nhẹ
+                interactiveMsgDiv.style.transform = 'scale(1.01)';
+                setTimeout(() => { interactiveMsgDiv.style.transform = ''; }, 300);
+            }, 150);
+            currentMsgIndex = randomIndex;
+        }
+
+        // Hàm hiển thị thông điệp theo chủ đề "chia đôi bản quyền"
+        function showSplitCopyrightMessage() {
+            interactiveMsgDiv.style.opacity = '0';
+            setTimeout(() => {
+                interactiveMsgDiv.innerHTML = `✍️📖 “Bản quyền một cõi yêu thương, xin chia hai nửa vấn vương hỡi người” — 
+                Nửa thuộc về người viết (rung động), nửa thuộc về nàng thơ (khai sáng ý thơ). Không thể tách rời, đó là điệu hồn chung. ✨`;
+                interactiveMsgDiv.style.opacity = '1';
+                interactiveMsgDiv.style.background = "#f5ede0";
+            }, 100);
+        }
+
+        // Hiệu ứng khi click vào vùng Venn (toàn bộ container hoặc svg)
+        function handleVennClick(e) {
+            e.stopPropagation();
+            showSplitCopyrightMessage();
+            // Thêm hiệu ứng rung nhẹ cho vùng giao
+            const intersection = document.getElementById('intersectionPath');
+            if (intersection) {
+                intersection.style.transition = 'filter 0.2s';
+                intersection.style.filter = 'drop-shadow(0 0 4px #d49c6c)';
+                setTimeout(() => {
+                    intersection.style.filter = '';
+                }, 400);
+            }
+        }
+
+        // Hiệu ứng di chuột đến vùng giao để hiển thị gợi ý
+        function highlightIntersection() {
+            const intersection = document.getElementById('intersectionPath');
+            if (intersection) {
+                intersection.setAttribute('fill', '#d9aa8a');
+                intersection.setAttribute('fill-opacity', '0.7');
+                interactiveMsgDiv.innerHTML = "🌟 Vùng giao thoa: nơi 'Tôi' và 'Em' cùng sở hữu bài thơ. Bản quyền bất khả phân! 🌟";
+                interactiveMsgDiv.style.background = "#fff4e6";
+            }
+        }
+
+        function resetIntersection() {
+            const intersection = document.getElementById('intersectionPath');
+            if (intersection) {
+                intersection.setAttribute('fill', '#d4b6a2');
+                intersection.setAttribute('fill-opacity', '0.45');
+            }
+        }
+
+        function attachHoverToVenn() {
+            const leftCircle = document.querySelector('.venn-svg circle:first-of-type');
+            const rightCircle = document.querySelector('.venn-svg circle:last-of-type');
+            const intersectionPath = document.getElementById('intersectionPath');
+
+            if (intersectionPath) {
+                intersectionPath.addEventListener('mouseenter', () => {
+                    highlightIntersection();
+                });
+                intersectionPath.addEventListener('mouseleave', () => {
+                    resetIntersection();
+                    if (!exploreBtn.matches(':hover') && !resetBtn.matches(':hover')) {
+                        interactiveMsgDiv.innerHTML = "✨ Hãy nhấp vào sơ đồ hình tròn hoặc nút bên dưới để khám phá ý nghĩa 'bản quyền chia đôi' ✨";
+                        interactiveMsgDiv.style.background = "";
+                    }
+                });
+            }
+            // Thêm hiệu ứng hover cho vòng tròn trái (TÔI)
+            if (leftCircle) {
+                leftCircle.addEventListener('mouseenter', () => {
+                    interactiveMsgDiv.innerHTML = "✒️ 'Tôi' — người mang rung động, viết nên vần thơ bằng trái tim xao xuyến.";
+                    interactiveMsgDiv.style.background = "#f4efE4";
+                });
+                leftCircle.addEventListener('mouseleave', () => {
+                    if (!intersectionPath.matches(':hover')) {
+                        interactiveMsgDiv.innerHTML = "✨ Hãy nhấp vào sơ đồ hình tròn hoặc nút bên dưới để khám phá ý nghĩa 'bản quyền chia đôi' ✨";
+                        interactiveMsgDiv.style.background = "";
+                    }
+                });
+            }
+            if (rightCircle) {
+                rightCircle.addEventListener('mouseenter', () => {
+                    interactiveMsgDiv.innerHTML = "🌺 'Em' — nét ngọc kiêu sa, nguồn cảm xúc muôn nơi, khơi nguồn ý thơ chào đời.";
+                    interactiveMsgDiv.style.background = "#f4efE4";
+                });
+                rightCircle.addEventListener('mouseleave', () => {
+                    if (!intersectionPath.matches(':hover')) {
+                        interactiveMsgDiv.innerHTML = "✨ Hãy nhấp vào sơ đồ hình tròn hoặc nút bên dưới để khám phá ý nghĩa 'bản quyền chia đôi' ✨";
+                        interactiveMsgDiv.style.background = "";
+                    }
+                });
+            }
+        }
+
+        // Gắn sự kiện click toàn vùng sơ đồ
+        if (vennContainer) {
+            vennContainer.addEventListener('click', handleVennClick);
+        }
+        if (vennSvg) {
+            vennSvg.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleVennClick(e);
+            });
+        }
+
+        // Nút explore: hiển thị thông điệp ngẫu nhiên về triết lý thi ca & bản quyền
+        if (exploreBtn) {
+            exploreBtn.addEventListener('click', () => {
+                showRandomMessage();
+            });
+        }
+
+        // Nút reset thông báo về mặc định (mà vẫn giữ tinh thần thơ)
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                interactiveMsgDiv.style.opacity = '0';
+                setTimeout(() => {
+                    interactiveMsgDiv.innerHTML = "✨ Bản quyền thi ca: rung động từ 'Em', lời thơ từ 'Tôi' – cùng nhau tạo nên tuyệt tác. ✨";
+                    interactiveMsgDiv.style.opacity = '1';
+                    interactiveMsgDiv.style.background = "";
+                }, 120);
+            });
+        }
+
+        // Thêm hiệu ứng nhấp nháy nhẹ cho các câu thơ khi click chuột vào phần đầu để tương tác (optional)
+        const verseSections = [vietnameseVerse, englishVerse];
+        verseSections.forEach(verse => {
+            if (verse) {
+                verse.addEventListener('click', () => {
+                    verse.style.transition = "background 0.25s";
+                    verse.style.backgroundColor = "#fff8ea";
+                    setTimeout(() => {
+                        verse.style.backgroundColor = "";
+                    }, 400);
+                    interactiveMsgDiv.style.opacity = '0';
+                    setTimeout(() => {
+                        interactiveMsgDiv.innerHTML = "📜 “Bản quyền một cõi yêu thương, xin chia hai nửa...” — Hãy nhấp vào sơ đồ để hiểu sâu hơn về sự hòa quyện!";
+                        interactiveMsgDiv.style.opacity = '1';
+                    }, 100);
+                });
+            }
+        });
+
+        attachHoverToVenn();
+
+        // Hiệu ứng chào mừng khi load trang
+        setTimeout(() => {
+            interactiveMsgDiv.style.transition = "opacity 0.4s";
+            interactiveMsgDiv.innerHTML = "💌 Bài thơ là sự giao thoa giữa ‘Tôi’ và ‘Em’. Bản quyền thuộc về cả hai, như mặt hồ và ánh trăng 💌";
+        }, 300);
+    })();
+</script>
+</body>
+</html>
