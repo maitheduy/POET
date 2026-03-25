@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Tình Ca Hàm Số & Biến Số - Bài thơ lục bát</title>
+    
+    <!-- MathJax 3 for beautiful math rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0f1a24 100%);
+            font-family: 'Georgia', 'Times New Roman', 'Noto Serif CJK SC', 'Noto Serif', serif;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng nền lung linh */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 40%, rgba(255,200,150,0.08) 0%, rgba(100,80,60,0.02) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Những chấm sao lung linh */
+        .star {
+            position: fixed;
+            background: rgba(255,240,200,0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            background: rgba(255,248,235,0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,150,0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Header lung linh */
+        .poem-header {
+            text-align: center;
+            padding: 2.5rem 2rem 1.5rem;
+            background: linear-gradient(135deg, #2c3e2b 0%, #1e2a1d 100%);
+            color: #f7e5c2;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poem-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,130,0.15) 0%, transparent 70%);
+            animation: shimmer 8s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-20%, -20%) rotate(0deg); }
+            100% { transform: translate(20%, 20%) rotate(360deg); }
+        }
+
+        .poem-header h1 {
+            font-size: 2.6rem;
+            font-weight: bold;
+            letter-spacing: 4px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: relative;
+            display: inline-block;
+        }
+
+        .poem-header h1 span {
+            display: inline-block;
+            animation: floatGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { text-shadow: 0 0 5px #ffd966, 0 2px 10px rgba(0,0,0,0.5); transform: translateY(0px); }
+            50% { text-shadow: 0 0 20px #ffb347, 0 2px 15px rgba(0,0,0,0.6); transform: translateY(-3px); }
+        }
+
+        .poem-header .subtitle {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #e6d5b3;
+            margin-top: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .author {
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            color: #d4c29a;
+            letter-spacing: 1px;
+        }
+
+        /* Section style */
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 1.8rem 2rem 0.8rem;
+            color: #8b5a2b;
+            border-left: 6px solid #d4a373;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .section-title i {
+            font-size: 1.3rem;
+            margin-right: 8px;
+        }
+
+        .verse {
+            font-style: italic; /* Tất cả dòng thơ đều nghiêng */
+            line-height: 2.1;
+            font-size: 1.13rem;
+            background: linear-gradient(to bottom, #fffef7, #fffaf0);
+            padding: 1.8rem 2rem;
+            border-radius: 32px;
+            margin: 0.5rem 1.5rem 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,245,0.8);
+            border: 1px solid #f0e2ce;
+            transition: transform 0.2s;
+        }
+
+        .verse:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+
+        .verse p {
+            margin: 0.4rem 0;
+            text-align: center;
+        }
+
+        /* MathJax styling - công thức toán học đẹp */
+        mjx-container {
+            font-style: normal !important;
+            display: inline-block;
+            margin: 0 2px;
+        }
+        
+        .math-inline {
+            font-style: normal;
+            display: inline-block;
+        }
+
+        .english-verse {
+            background: linear-gradient(135deg, #faf5e8, #fef8ec);
+            border-left: 4px solid #c2a15b;
+            font-size: 1rem;
+            color: #5e4b32;
+        }
+
+        /* Sơ đồ ánh xạ lung linh */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 1rem 2rem;
+            padding: 1rem;
+            background: radial-gradient(ellipse at center, #f9efde, #efe2cf);
+            border-radius: 64px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .diagram-svg {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.2));
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .diagram-svg:hover {
+            transform: scale(1.02);
+        }
+
+        /* Thông điệp tương tác */
+        .message-card {
+            text-align: center;
+            background: linear-gradient(145deg, #f7efdf, #fcf5e8);
+            margin: 1rem 2rem 1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            color: #7a562e;
+            border: 1px solid #eedfc4;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            min-height: 85px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 1rem 2rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #d4bc94;
+            border: none;
+            color: #2c2b26;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            border-radius: 40px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background: #b8875a;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.8rem;
+            font-size: 0.75rem;
+            color: #baa06e;
+            border-top: 1px solid #ecdbaa;
+            background: #fff9ef;
+        }
+        
+        /* Style cho công thức trong SVG */
+        .math-svg {
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 32px;
+            }
+            .verse {
+                padding: 1rem;
+                margin: 0.5rem 1rem;
+            }
+            .section-title {
+                margin: 1.2rem 1rem;
+                font-size: 1.4rem;
+            }
+            .poem-header h1 {
+                font-size: 1.8rem;
+            }
+            .btn-group {
+                gap: 10px;
+            }
+            .btn {
+                padding: 6px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="poem-header">
+        <h1><span>📐</span> Tình Ca Hàm Số & Biến Số <span>📈</span></h1>
+        <div class="subtitle">Khúc Lục Bát Giao Thoa Toán Học</div>
+        <div class="author">Dr.rer.nat Duymt</div>
+    </div>
+
+    <!-- Bản Lục Bát -->
+    <div class="section-title"><i>🌸</i> Bản Lục Bát</div>
+    <div class="verse" id="vietnameseVerse">
+        <p>Anh là quy tắc hàm thiêng,</p>
+        <p>Em là biến \(x\) cõi tiên bước vào.</p>
+        <p>Thiếu \(x\) hàm biết tính sao?</p>
+        <p>Chỉ là nét mực gầy hao trên tờ.</p>
+        <p>Đưa em vào mộng vào mơ,</p>
+        <p>Trải miền giá trị vô bờ yêu thương.</p>
+        <p>Hương tình tỏa ngát trăm đường,</p>
+        <p>Hàm quy dẫn biến, tơ vương ngọc ngà.</p>
+        <p>Hàm, biến chẳng rẽ chia xa,</p>
+        <p>Tách rời vô nghĩa, phôi pha lụi tàn.</p>
+        <p>Mình là một cặp chứa chan,</p>
+        <p>Tình yêu cấu trúc muôn vàn yêu thương.</p>
+    </div>
+
+    <!-- English Translation -->
+    <div class="section-title"><i>✨</i> English Translation</div>
+    <div class="verse english-verse" id="englishVerse">
+        <p>I am rule \(f\), divine and true,</p>
+        <p>The variable \(x\), my love, is you.</p>
+        <p>Without the input that you provide,</p>
+        <p>The function's purpose is cast aside.</p>
+        <p>I lead you through the range of grace,</p>
+        <p>To find the most fragrant, beautiful place.</p>
+        <p>Where poetry blooms and feelings soar,</p>
+        <p>Across the values, forevermore.</p>
+        <p>Variable and function, meant to be,</p>
+        <p>Bound in a strict eternity.</p>
+        <p>Apart, we wander lost and bare,</p>
+        <p>Meaningless entities in despair.</p>
+        <p>Together we map the stars above,</p>
+        <p>A flawless pair in the structure of love.</p>
+    </div>
+
+    <!-- Sơ Đồ Ánh Xạ Tình Yêu (SVG tương tác) -->
+    <div class="section-title"><i>🔮</i> Sơ Đồ Ánh Xạ Tình Yêu</div>
+    <div class="diagram-container" id="diagramArea">
+        <svg class="diagram-svg" width="550" height="280" viewBox="0 0 550 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                    <feMerge>
+                        <feMergeNode in="offsetblur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+                <linearGradient id="gradDomain" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#87b9e5" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#5c93c5" stop-opacity="0.8"/>
+                </linearGradient>
+                <linearGradient id="gradRange" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#f7bc7a" stop-opacity="0.9"/>
+                    <stop offset="100%" stop-color="#e69f5c" stop-opacity="0.85"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Domain (Tập xác định) -->
+            <circle cx="130" cy="140" r="95" fill="url(#gradDomain)" stroke="#3c6e9e" stroke-width="2.5" filter="url(#glow)"/>
+            <text x="130" y="115" text-anchor="middle" fill="#1d4668" font-weight="bold" font-size="16">Tập Xác Định</text>
+            <text x="130" y="145" text-anchor="middle" fill="#2a577b" font-size="14" font-style="italic">(Em – Biến số x)</text>
+            <text x="130" y="185" text-anchor="middle" fill="#be7a3a" font-size="20" font-family="monospace">x ∈ ℝ</text>
+
+            <!-- Range (Miền giá trị) -->
+            <circle cx="420" cy="140" r="95" fill="url(#gradRange)" stroke="#b4622a" stroke-width="2.5" filter="url(#glow)"/>
+            <text x="420" y="115" text-anchor="middle" fill="#9b551f" font-weight="bold" font-size="16">Miền Giá Trị</text>
+            <text x="420" y="145" text-anchor="middle" fill="#b86930" font-size="14" font-style="italic">(Hoa mộng & Thơ tình)</text>
+            <text x="420" y="185" text-anchor="middle" fill="#9e613a" font-size="16" font-family="monospace">y = f(x)</text>
+
+            <!-- Mũi tên chính: Quy tắc f -->
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                    <polygon points="0 0, 10 5, 0 10" fill="#a56942" />
+                </marker>
+            </defs>
+            <path d="M 225 140 L 335 140" stroke="#c27e4a" stroke-width="3.5" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="8 5"/>
+            <text x="275" y="115" text-anchor="middle" fill="#b45a2b" font-weight="bold" font-size="14">Quy tắc hàm f</text>
+            <text x="275" y="130" text-anchor="middle" fill="#a05a2c" font-size="12">(Anh – dẫn em qua miền giá trị)</text>
+
+            <!-- Mũi tên phụ: không thể tách rời -->
+            <path d="M 130 220 Q 275 260 420 220" stroke="#729fcf" stroke-width="2" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowhead)"/>
+            <text x="270" y="255" text-anchor="middle" fill="#7c6b4b" font-size="11" font-style="italic">Hàm & Biến – Không thể tách rời</text>
+        </svg>
+    </div>
+
+    <!-- Thông điệp tương tác -->
+    <div class="message-card" id="interactiveMsg">
+        💞 <strong>Hàm và Biến</strong> – hai thực thể bất khả phân, cùng nhau tạo nên cấu trúc tình yêu vi diệu 💞
+    </div>
+    <div class="btn-group">
+        <button class="btn" id="philosophyBtn">📖 Triết lý ánh xạ</button>
+        <button class="btn" id="resetMsgBtn">🕯️ Lời tình nguyên bản</button>
+        <button class="btn" id="highlightPoemBtn">✨ Cảm nhận thi ca</button>
+    </div>
+
+    <footer>
+        <i>“Hàm, biến chẳng rẽ chia xa, tách rời vô nghĩa, phôi pha lụi tàn”</i><br/>
+        — Cấu trúc tình yêu: Anh là quy tắc, Em là biến số, cùng nhau xác định miền giá trị vĩnh cửu —
+    </footer>
+</div>
+
+<script>
+    (function() {
+        const msgDiv = document.getElementById('interactiveMsg');
+        const diagram = document.getElementById('diagramArea');
+        const philosophyBtn = document.getElementById('philosophyBtn');
+        const resetBtn = document.getElementById('resetMsgBtn');
+        const highlightBtn = document.getElementById('highlightPoemBtn');
+        const vietVerse = document.getElementById('vietnameseVerse');
+        const engVerse = document.getElementById('englishVerse');
+
+        // Các thông điệp triết lý ánh xạ
+        const philosophyMessages = [
+            "📐 Anh là quy tắc \(f\), em là biến \(x\) — quy tắc dẫn biến đi khắp miền giá trị, đưa em đến những vùng thơ tươi đẹp nhất.",
+            "🔗 Hàm và biến không thể rời nhau: nếu thiếu \(x\), hàm số chỉ là nét mực gầy hao. Nếu thiếu \(f\), \(x\) lạc lõng giữa vô định.",
+            "🎯 Tập xác định là em (biến số \(x\)), miền giá trị là nơi tình thơ nở rộ. Quy tắc \(f\) (anh) là cây cầu đưa em sang miền ấy.",
+            "💎 ‘Hàm, biến chẳng rẽ chia xa’ – đó là tiên đề tình yêu: hai thực thể chỉ có nghĩa khi thuộc về nhau.",
+            "🌹 Em là đầu vào \(x\), anh là quy tắc \(f\), đưa em tới miền giá trị của yêu thương – như ánh sáng dẫn bước trăng sao."
+        ];
+
+        function showRandomPhilosophy() {
+            const randomIndex = Math.floor(Math.random() * philosophyMessages.length);
+            msgDiv.style.opacity = '0';
+            setTimeout(() => {
+                msgDiv.innerHTML = `✨ ${philosophyMessages[randomIndex]} ✨`;
+                msgDiv.style.opacity = '1';
+                msgDiv.style.transition = 'opacity 0.3s';
+                msgDiv.style.background = '#fff5e6';
+                // Kích hoạt MathJax để render công thức mới nếu có
+                if (window.MathJax) {
+                    MathJax.typesetPromise([msgDiv]).catch(err => console.log(err));
+                }
+            }, 150);
+        }
+
+        function resetToOriginalMessage() {
+            msgDiv.style.opacity = '0';
+            setTimeout(() => {
+                msgDiv.innerHTML = '💞 <strong>Hàm và Biến</strong> – hai thực thể bất khả phân, cùng nhau tạo nên cấu trúc tình yêu vi diệu 💞';
+                msgDiv.style.opacity = '1';
+                msgDiv.style.background = 'linear-gradient(145deg, #f7efdf, #fcf5e8)';
+            }, 120);
+        }
+
+        // Hiệu ứng nhấp nháy cho các câu thơ
+        function highlightPoem() {
+            if (vietVerse) {
+                vietVerse.style.transition = 'all 0.4s';
+                vietVerse.style.backgroundColor = '#fff7e8';
+                vietVerse.style.boxShadow = '0 0 0 2px #e7cfa1, 0 8px 20px rgba(0,0,0,0.1)';
+                setTimeout(() => {
+                    vietVerse.style.backgroundColor = '';
+                    vietVerse.style.boxShadow = '';
+                }, 800);
+            }
+            if (engVerse) {
+                engVerse.style.transition = 'all 0.4s';
+                engVerse.style.backgroundColor = '#fff6ea';
+                engVerse.style.boxShadow = '0 0 0 2px #e2caa0';
+                setTimeout(() => {
+                    engVerse.style.backgroundColor = '';
+                    engVerse.style.boxShadow = '';
+                }, 800);
+            }
+            msgDiv.style.opacity = '0';
+            setTimeout(() => {
+                msgDiv.innerHTML = '🌸 <strong>“Đưa em vào mộng vào mơ, trải miền giá trị vô bờ yêu thương”</strong> — Hàm số dẫn biến, tình thơ bất tận 🌸';
+                msgDiv.style.opacity = '1';
+            }, 120);
+        }
+
+        // Sự kiện click vào sơ đồ ánh xạ
+        if (diagram) {
+            diagram.addEventListener('click', () => {
+                msgDiv.style.opacity = '0';
+                setTimeout(() => {
+                    msgDiv.innerHTML = '🔁 <strong>Ánh xạ tình yêu:</strong> Tập xác định (Em) → Quy tắc \(f\) (Anh) → Miền giá trị (Hoa mộng & Thơ tình). Cả hai tạo nên vẻ đẹp duy nhất!';
+                    msgDiv.style.opacity = '1';
+                    msgDiv.style.background = '#fff3e2';
+                    if (window.MathJax) {
+                        MathJax.typesetPromise([msgDiv]).catch(err => console.log(err));
+                    }
+                }, 100);
+                // Hiệu ứng nhấp nháy cho vòng tròn
+                const svgCircles = document.querySelectorAll('.diagram-svg circle');
+                svgCircles.forEach(c => {
+                    c.style.transition = 'filter 0.2s';
+                    c.setAttribute('filter', 'url(#glow)');
+                    setTimeout(() => c.setAttribute('filter', 'url(#glow)'), 10);
+                });
+            });
+        }
+
+        // Gắn sự kiện các nút
+        if (philosophyBtn) philosophyBtn.addEventListener('click', showRandomPhilosophy);
+        if (resetBtn) resetBtn.addEventListener('click', resetToOriginalMessage);
+        if (highlightBtn) highlightBtn.addEventListener('click', highlightPoem);
+
+        // Thêm hiệu ứng di chuột vào các dòng thơ để cảm nhận (tương tác nhẹ)
+        const allVerses = [vietVerse, engVerse];
+        allVerses.forEach(verse => {
+            if (verse) {
+                verse.addEventListener('mouseenter', () => {
+                    verse.style.transform = 'scale(1.005)';
+                });
+                verse.addEventListener('mouseleave', () => {
+                    verse.style.transform = '';
+                });
+            }
+        });
+
+        // Tạo hiệu ứng sao lung linh trên nền
+        function createStars() {
+            for (let i = 0; i < 60; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                let size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+        
+        // Đảm bảo MathJax render tất cả công thức lần đầu
+        if (window.MathJax) {
+            MathJax.typesetPromise().catch(err => console.log(err));
+        }
+    })();
+</script>
+</body>
+</html>
